@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:this.resources>
+		<xp:script src="/ClientSideValidationV1.js" clientSide="true">
+		</xp:script>
+		<xp:script src="/ssjs_ccComentarios.jss" clientSide="false">
+		</xp:script>
+		<xp:script src="/csjsÌComentarios.js" clientSide="true">
+		</xp:script>
+
+
+		<xp:styleSheet href="/bootstrapComplement.css"></xp:styleSheet>
+	</xp:this.resources>
+
+	<xp:button value="Nuevo comentario" id="button1" styleClass="btn-NoBackground">
+		<xp:this.rendered><![CDATA[#{javascript:!currentDocument.isNewNote()
+//true}]]></xp:this.rendered>
+		<xp:eventHandler event="onclick" submit="false"
+			id="eventHandler6">
+			<xp:this.script><![CDATA[var elementID = '#{id:dialogNewComentario}'; 
+document.getElementById(elementID).className += "modal_Extension";
+
+
+XSP.openDialog('#{id:dialogNewComentario}')
+]]></xp:this.script>
+		</xp:eventHandler>
+	</xp:button>
+	<xe:dialog id="dialogNewComentario">
+		<div class="container">
+			<div class="panel panel-primary">
+
+				<div class="panel-body">
+					<xp:panel id="panelNewComentarios" readonly="false"
+						disableTheme="true">
+						<xp:this.data>
+							<xp:dominoDocument var="NewComentario"
+								formName="Comentarios" computeWithForm="both">
+								<xp:this.postOpenDocument>
+									<xp:actionGroup>
+										<xp:changeDocumentMode mode="edit"
+											var="NewComentario">
+										</xp:changeDocumentMode>
+									</xp:actionGroup>
+								</xp:this.postOpenDocument>
+							</xp:dominoDocument>
+						</xp:this.data>
+
+						<xe:dialogContent id="dialogContent2">
+							<xp:panel>
+								<xp:table>
+									<xp:tr>
+										<xp:td>
+											<xp:label value="Comentarios:" id="fechaInicioAmpliacion_Label1"
+												for="fechaInicioAmpliacion1">
+											</xp:label>
+										</xp:td>
+										<xp:td>
+											<xp:inputTextarea id="inputNewComments">
+											</xp:inputTextarea>
+
+										</xp:td>
+									</xp:tr>
+									<xp:tr>
+										<xp:td colspan="2">
+											<xp:messages id="messages1">
+											</xp:messages>
+
+										</xp:td>
+
+									</xp:tr>
+								</xp:table>
+							</xp:panel>
+						</xe:dialogContent>
+						<xe:dialogButtonBar id="dialogButtonBar1">
+
+							<xp:button id="button7" value="Aceptar">
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="partial" id="eventHandler10" refreshId="panelComentarios">
+									<xp:this.action>
+
+										<xp:actionGroup>
+
+											<xp:executeScript>
+												<xp:this.script><![CDATA[#{javascript:try{
+	var document = database.createDocument();
+	if(null != document){
+		document.appendItemValue('form', 'Comentarios');
+		document.appendItemValue('IDDocumentoAsociado', compositeData.IDDocumento);
+		document.appendItemValue('Comentarios', getComponent("inputNewComments").getValue());
+		//getComponent("inputNewComments").getValue());
+		document.computeWithForm(true,false);
+		
+		document.save()
+	}
+}catch(e){
+	print('Error: ' + e);
+	return;
+}
+		//document.save();
+	}]]></xp:this.script>
+											</xp:executeScript>
+
+
+											<xp:executeScript>
+												<xp:this.script><![CDATA[#{javascript:var c = getComponent("dialogNewComentario")
+c.hide()}]]></xp:this.script>
+											</xp:executeScript>
+										</xp:actionGroup>
+									</xp:this.action>
+									<xp:this.script><![CDATA[var msg="";
+if(!validaCampoTexto(dojo.byId("#{id:inputNewComments}")))msg= msg + "Comentarios.\n";
+
+if(msg!=""){
+	alert("Debe incluir los siguientes Datos: \n" + msg);
+	return false;
+}
+
+
+var elementID = '#{id:dialogNewComentario}'; 
+
+document.getElementById(elementID).className =
+   document.getElementById(elementID).className.replace
+      ( /(?:^|\s)modal_Extension(?!\S)/g , '' );]]></xp:this.script>
+								</xp:eventHandler>
+							</xp:button>
+
+							<xp:button value="Cancelar" id="button2">
+
+								<xp:eventHandler event="onclick" submit="true"
+									refreshMode="complete" id="eventHandler1">
+									<xp:this.action><![CDATA[#{javascript:var c = getComponent("dialogNewComentario")
+c.hide()}]]></xp:this.action>
+									<xp:this.script><![CDATA[
+
+
+var elementID = '#{id:dialogNewComentario}'; 
+
+document.getElementById(elementID).className =
+   document.getElementById(elementID).className.replace
+      ( /(?:^|\s)modal_Extension(?!\S)/g , '' );]]></xp:this.script>
+								</xp:eventHandler>
+							</xp:button>
+						</xe:dialogButtonBar>
+					</xp:panel>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<xp:eventHandler event="onHide" submit="false">
+			<xe:this.script><![CDATA[var elementID = '#{id:dialogNewComentario}'; 
+
+document.getElementById(elementID).className =
+   document.getElementById(elementID).className.replace
+      ( /(?:^|\s)modal_Extension(?!\S)/g , '' );]]></xe:this.script>
+		</xp:eventHandler>
+
+	</xe:dialog>
+
+	<xp:panel id="panelComentarios">
+		<xp:this.data>
+			<xp:dominoView var="viewComentarios" viewName="(vComentarios)"
+				categoryFilter="#{javascript:compositeData.IDDocumento}">
+			</xp:dominoView>
+		</xp:this.data>
+		<xp:pager layout="Previous Group Next" partialRefresh="true"
+			id="pager1" for="repeatComentarios" disableTheme="false">
+		</xp:pager>
+
+
+
+
+		<div class="">
+			<table class="table table-hover tableNoPadding">
+
+
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th>Fecha</th>
+						<th>Usuario</th>
+						<th>Comentario</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<xp:repeat id="repeatComentarios" rows="10"
+						value="#{viewComentarios}" var="comentario">
+						<xp:div id="rowDataContainer">
+
+
+
+							<xp:span id="inform">
+
+								<tr>
+									<td>
+										<xp:image url="/edit.png" id="image1" styleClass="imgCursorPointer"
+											rendered="#{javascript:rendered_DeleteComentario()}">
+
+											<xp:eventHandler event="onclick" submit="false"
+												id="eventHandler3">
+												<xp:this.script><![CDATA[XSP.openTooltipDialog('#{id:tooltipDialog2}','#{id:computedField1}')]]></xp:this.script>
+											</xp:eventHandler>
+										</xp:image>
+
+									</td>
+									<td>
+										<xp:image url="/delete.png" id="image2" styleClass="imgCursorPointer"
+											rendered="#{javascript:rendered_DeleteComentario();}">
+
+
+											<xp:eventHandler event="onclick" submit="true"
+												refreshMode="complete" id="eventHandler9">
+												<xp:this.action>
+
+													<xp:actionGroup>
+
+
+
+														<xp:confirm message="¿Está seguro de eliminar el registro?">
+														</xp:confirm>
+
+
+
+														<xp:executeScript script="#{javascript:delete_Comentario();}">
+
+														</xp:executeScript>
+													</xp:actionGroup>
+												</xp:this.action>
+											</xp:eventHandler>
+										</xp:image>
+
+									</td>
+									<td>
+										<xp:text escape="true" id="computedField1" value="#{comentario.$4}">
+											<xp:this.converter>
+												<xp:convertDateTime type="both">
+												</xp:convertDateTime>
+											</xp:this.converter>
+										</xp:text>
+									</td>
+									<td>
+										<xp:text escape="true" id="computedField2" value="#{comentario.$2}">
+										</xp:text>
+									</td>
+									<td>
+										<xp:text escape="true" id="computedField3" value="#{comentario.Comentarios}">
+										</xp:text>
+									</td>
+
+
+
+								</tr>
+
+							</xp:span>
+							<xe:tooltipDialog id="tooltipDialog2">
+								<xp:panel>
+									<xp:this.data>
+										<xp:dominoDocument var="docComentario"
+											formName="Comentarios" action="editDocument"
+											documentId="#{javascript:comentario.getNoteID()}"
+											ignoreRequestParams="true">
+										</xp:dominoDocument>
+									</xp:this.data>
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<xp:label value="Editar Comentario" id="label2">
+											</xp:label>
+										</div>
+										<div class="panel-body">
+											<xp:table>
+
+
+												<xp:tr>
+													<xp:td>
+														<xp:label value="Comentario" id="label5">
+														</xp:label>
+													</xp:td>
+													<xp:td>
+
+														<xp:inputTextarea id="inputTextarea1"
+															value="#{docComentario.Comentarios}">
+														</xp:inputTextarea>
+													</xp:td>
+												</xp:tr>
+
+											</xp:table>
+											<xp:panel>
+												<xp:button value="Aceptar" id="button3">
+													<xp:eventHandler event="onclick" submit="true"
+														refreshMode="partial" id="eventHandler4" refreshId="panelComentarios">
+														<xp:this.action>
+															<xp:actionGroup>
+																<xp:saveDocument></xp:saveDocument>
+
+																<xp:executeScript>
+																	<xp:this.script><![CDATA[#{javascript:var c = getComponent("tooltipDialog2")
+c.hide()}]]></xp:this.script>
+																</xp:executeScript>
+															</xp:actionGroup>
+														</xp:this.action>
+													</xp:eventHandler>
+												</xp:button>
+												<xp:button value="Cancel" id="button4">
+													<xp:eventHandler event="onclick" submit="true"
+														immediate="true" id="eventHandler5">
+														<xp:this.action>
+															<xp:actionGroup>
+
+																<xp:executeScript>
+																	<xp:this.script><![CDATA[#{javascript:var c = getComponent("tooltipDialog2")
+c.hide()}]]></xp:this.script>
+																</xp:executeScript>
+															</xp:actionGroup>
+														</xp:this.action>
+													</xp:eventHandler>
+												</xp:button>
+
+											</xp:panel>
+										</div>
+									</div>
+
+								</xp:panel>
+							</xe:tooltipDialog>
+						</xp:div>
+					</xp:repeat>
+				</tbody>
+			</table>
+
+		</div>
+
+		<xp:br></xp:br>
+
+	</xp:panel>
+</xp:view>

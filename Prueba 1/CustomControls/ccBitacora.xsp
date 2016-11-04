@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+
+
+
+
+	<xp:viewPanel rows="10" id="viewPanel1" >
+		<xp:this.facets>
+			<xp:pager partialRefresh="true" layout="Previous Group Next"
+				xp:key="headerPager" id="pager1" >
+			</xp:pager>
+		</xp:this.facets>
+		<xp:this.data>
+			<xp:dominoView var="view1" viewName="vBitacora">
+				<xp:this.categoryFilter><![CDATA[#{javascript:compositeData.get("key")}]]></xp:this.categoryFilter>
+			</xp:dominoView>
+		</xp:this.data>
+		<xp:viewColumn columnName="IDDocumento" id="viewColumn1"
+			 rendered="#{javascript:false}">
+			<xp:viewColumnHeader value="I d documento"
+				id="viewColumnHeader1" rendered="#{javascript:false}">
+			</xp:viewColumnHeader>
+		</xp:viewColumn>
+		<xp:viewColumn columnName="Hora" id="viewColumn2" >
+			<xp:this.converter>
+				<xp:convertDateTime type="both"></xp:convertDateTime>
+			</xp:this.converter>
+			<xp:viewColumnHeader value="Fecha" id="viewColumnHeader2">
+			</xp:viewColumnHeader>
+		</xp:viewColumn>
+		<xp:viewColumn columnName="$4" id="viewColumn3">
+			<xp:viewColumnHeader value="Usuario" id="viewColumnHeader3">
+			</xp:viewColumnHeader>
+		</xp:viewColumn>
+		<xp:viewColumn columnName="Accion" id="viewColumn4">
+			<xp:viewColumnHeader value="Acción" id="viewColumnHeader4">
+			</xp:viewColumnHeader>
+		</xp:viewColumn>
+		<xp:viewColumn id="viewColumn5" columnName="Detalle">
+			<xp:this.facets>
+				<xp:viewColumnHeader xp:key="header"
+					id="viewColumnHeader5" value="Detalle" >
+				</xp:viewColumnHeader>
+			</xp:this.facets>
+		</xp:viewColumn></xp:viewPanel>
+</xp:view>

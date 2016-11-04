@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="06258061005712C6" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="187e" sequence="59" unid="5AA0F51D8297B33306258027005D17BA">
+<created><datetime>20160907T105649,22-06</datetime></created>
+<modified><datetime>20161104T095137,27-06</datetime></modified>
+<revised><datetime>20160914T081233,95-06</datetime></revised>
+<lastaccessed><datetime>20161104T095137,27-06</datetime></lastaccessed>
+<addedtofile><datetime>20161104T095137,27-06</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Milton Villegas/O=CV3</name><name>CN=Cristhian Romero/O=CV3</name><name>CN=Milton Villegas/O=CV3</name><name>CN=localCristhian/OU=DEV/O=CV3</name><name>CN=Milton Villegas/O=CV3</name><name>CN=localCristhian/OU=DEV/O=CV3</name></updatedby>
+<wassignedby><name>CN=localCristhian/OU=DEV/O=CV3</name></wassignedby>
+<item name="$TITLE"><text>bootstrapComplement.css</text></item>
+<item name="$MimeType" sign="true"><text>text/css</text></item>
+<item name="$Flags"><text>34C=Q</text></item>
+<item name="$MimeCharSet" sign="true"><text>UTF-8</text></item>
+<item name="$DesignerVersion" sign="true"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>bootstrapComplement.css</text></item></note>

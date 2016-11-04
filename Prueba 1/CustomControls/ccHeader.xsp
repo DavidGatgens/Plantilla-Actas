@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xe="http://www.ibm.com/xsp/coreex">
+	<xp:this.resources>
+		<xp:styleSheet href="/bootstrap.min.css"></xp:styleSheet>
+	</xp:this.resources>
+	<xe:navbar id="navbar1" pageWidth="full" inverted="true"
+		headingText="#{javascript:database.getTitle()}">
+		<xe:this.navbarBeforeLinks>
+			<xe:pageTreeNode page="/Home.xsp" label="Inicio">
+			</xe:pageTreeNode>			
+		</xe:this.navbarBeforeLinks>
+		<xe:this.navbarAfterLinks>
+			<xe:basicContainerNode label="Administración">
+				<xe:this.children>
+					<xe:pageTreeNode label="Parámetros"
+						page="/xpParametros.xsp">
+					</xe:pageTreeNode>
+				</xe:this.children>
+			</xe:basicContainerNode>
+		</xe:this.navbarAfterLinks>
+	</xe:navbar>
+</xp:view>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.0" replicaid="06258061005712C6" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="18f2" sequence="42" unid="46A90868599DDD4806258041007B8828">
+<created><datetime>20161003T162917,84-06</datetime></created>
+<modified><datetime>20161104T095137,85-06</datetime></modified>
+<revised><datetime>20161005T101604,49-06</datetime></revised>
+<lastaccessed><datetime>20161104T095137,85-06</datetime></lastaccessed>
+<addedtofile><datetime>20161104T095137,85-06</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Cristhian Romero/O=CV3</name></updatedby>
+<wassignedby><name>CN=Cristhian Romero/O=CV3</name></wassignedby>
+<item name="$Flags"><text>gC~4;</text></item>
+<item name="$TITLE"><text>cc_Acuerdo.xsp</text></item>
+
+
+
+
+
+<item name="$DesignerVersion"><text>8.5.1</text></item>
+
+
+<item name="$FileNames" sign="true"><text>cc_Acuerdo.xsp</text></item>
+
+
+
+</note>
